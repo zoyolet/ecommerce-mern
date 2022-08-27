@@ -10,7 +10,36 @@ router.get("/", function (req, res, next) {
 });
 
 router.get("/login", function (req, res, next) {
-  res.send("login with a resource");
+  res.render("login");
+});
+
+router.post("/login", async function (req, res, next) {
+  try {
+    let body = req.body;
+    console.log(body);
+    let username = req.body.username;
+    let password = req.body.password;
+    let data = await User.find({ username: username });
+    if (data) {
+      console.log(data);
+      let check = await bcrypt.compare(password, data[0].password);
+      if (check) {
+        res.cookie(`email`, `${data[0].email}`);
+        res.cookie(`username`, `${data[0].username}`);
+        if (data[0].roles == "user") {
+          res.redirect("/");
+        } else if (data[0].roles == "admin") {
+          res.redirect("/admin");
+        }
+      } else {
+        res.send("Invalid username or password");
+      }
+    } else {
+      res.send("something else");
+    }
+  } catch (e) {
+    console.log(e);
+  }
 });
 
 router.get("/signup", async function (req, res, next) {
@@ -27,7 +56,8 @@ router.post("/signup", async function (req, res, next) {
     console.log(user.password);
     let userDB = new User(user);
     await userDB.save();
-    res.send("Registered successfully");
+    res.redirect("/users/login");
+    // res.send("Registered successfully");
   } catch (e) {
     console.log(e);
     res.send("error something else");

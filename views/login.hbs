@@ -1,1 +1,9 @@
-<h1>Login page</h1>
+<!DOCTYPE html>
+<h1>Welcome to login page {{title}}</h1>
+
+<form action="/users/login" method="post">
+    <label for="fname">username</label>
+    <input type="text" name="username" placeholder="username">
+    <label for="fname">Password</label>
+    <input type="password" name="password" placeholder="password">
+    <input type="submit" value="Submit">
