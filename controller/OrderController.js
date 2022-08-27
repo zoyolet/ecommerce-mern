@@ -6,7 +6,7 @@ const salt = 10;
 
 /* GET users listing. */
 router.get("/", function (req, res, next) {
-  res.send("respond with a resource");
+  res.render("order");
 });
 
 router.get("/getOrder", function (req, res, next) {
