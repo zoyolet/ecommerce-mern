@@ -3,7 +3,7 @@ const userSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true,
-    unique: true,
+    unique: [true, "This username is already taken"],
   },
   password: {
     type: String,
@@ -13,7 +13,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     match: /.+\@.+\..+/,
-    unique: true,
+    unique: [true, "This email is already taken"],
   },
   roles: {
     type: [
