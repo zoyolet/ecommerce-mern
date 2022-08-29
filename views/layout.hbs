@@ -10,10 +10,17 @@
   <body>
     
 <nav>
-    <a href="./">Home</a>
+    {{#if isAdmin}}
+    <a href="/admin">Home</a>
+    <a href="/admin/products">Products</a>
+    <a href="/admin/orders">Orders</a>
+    <a href="/admin/users">Users</a>
+    {{else}}
+    <a href="/">Home</a>
     <a href="/product">Products</a>
     <a href="/order">My Orders</a>
     <a href="/cart">Cart</a>
+    {{/if}}
     {{#if isLoggedin}}
     <a style="float:right" href="/users/logout">Logout</a>
     {{else}}
