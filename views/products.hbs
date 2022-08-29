@@ -1,27 +1,14 @@
 <h1>Product page</h1>
-<form action="/product/createProduct" enctype="multipart/form-data" method="post">
-  <div class="form-group">
-    <input type="file" class="form-control-file" name="image">
-    <input type="text" class="form-control" placeholder="name" name="name">
-    <input type="number" class="form-control" placeholder="price" name="price">
-    <input type="text" class="form-control" placeholder="description" name="desc">
-    <input type="number" class="form-control" placeholder="quantity" name="quantity">
-    <input type="text" class="form-control" placeholder="brand" name="brand">
-    <input type="submit" value="Get me the stats!" class="btn btn-default">            
-  </div>
-</form>
-
-<h1>Uploaded Images</h1>
+<h1>Product Lists</h1>
     <div>
         {{#each items}}
-        <div>
             <div>
-                     <img style='width: 300px;height:300px; object-fit: contain'  src="data:image/{{this.img.contentType}};base64,{{this.img.data}}"/>
+              <a target="_blank" href="/product?productId={{this.id}}">
+                     <img style='width: 150x;height:150px; object-fit: contain'  src="data:image/{{this.img.contentType}};base64,{{this.img.data}}"/>
+              </a>
                 <div>
                     <h5>{{this.name }}</h5>
-                    <p>{{this.desc}}  </p>
                 </div>
             </div>
-        </div>
         {{/each}}
     </div>

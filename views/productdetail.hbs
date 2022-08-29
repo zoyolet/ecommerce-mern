@@ -1,0 +1,18 @@
+ <div>
+        {{#each items}}
+        <h1>{{this.name}}</h1>
+            <div>
+              <img style='width: 150x;height:150px; object-fit: contain'  src="data:image/{{this.img.contentType}};base64,{{this.img.data}}"/>
+              <p>Description: {{this.desc}}</p>
+              <p>Price: {{this.price}}$</p>
+              <p>In Stock: {{this.quantity}}</p>
+              <form action="/cart/addToCart"  method="post">
+                     <div class="form-group">
+                     <input type="text" class="form-control" placeholder="quantity" name="quantity" value="{{this.id}}" hidden>
+                     <input type="number" class="form-control" placeholder="quantity" name="quantity" value="1">
+                     <input type="submit" value="add to cart" class="btn btn-default">            
+                     </div>
+              </form>
+            </div>
+        {{/each}}
+</div>

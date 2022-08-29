@@ -12,17 +12,29 @@ const salt = 10;
 
 /* GET users listing. */
 router.get("/", function (req, res, next) {
+  console.log(req.query.productId);
   var isLoggedin = false;
   if (req.session.userToken) {
     isLoggedin = true;
   }
-  Product.find({}, (err, items) => {
-    if (err) {
-    } else {
-      //   console.log(items);
-      res.render("products", { items: items, isLoggedin: isLoggedin });
-    }
-  });
+  if (req.query.productId) {
+    console.log("enter productDetail page");
+    Product.find({ _id: req.query.productId }, (err, items) => {
+      if (err) {
+      } else {
+        //   console.log(items);
+        res.render("productdetail", { items: items, isLoggedin: isLoggedin });
+      }
+    });
+  } else {
+    Product.find({}, (err, items) => {
+      if (err) {
+      } else {
+        //   console.log(items);
+        res.render("products", { items: items, isLoggedin: isLoggedin });
+      }
+    });
+  }
 });
 
 router.get("/getProduct", function (req, res, next) {
