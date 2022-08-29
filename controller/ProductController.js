@@ -50,26 +50,13 @@ router.post("/createProduct", upload.single("image"), (req, res, next) => {
     }
   });
 });
-// router.post(
-//   "/createProduct",
-//   upload.single("uploaded_file"),
-//   async function (req, res, next) {
-//     console.log(req.body);
-//     let productDB = req.body;
-//     if (req.file) {
-//       const encoded = req.file.buffer.toString("base64");
-//       console.log(encoded);
-//     }
-//     res.render("products");
-//   }
-// );
 
-router.get("/listProduct", function (req, res, next) {
-  res.send("listProduct with a resource");
-});
+// router.get("/listProduct", function (req, res, next) {
+//   res.send("listProduct with a resource");
+// });
 
-router.get("/deleteProduct", function (req, res, next) {
-  res.send("deleteProduct with a resource");
-});
+// router.get("/deleteProduct", function (req, res, next) {
+//   res.send("deleteProduct with a resource");
+// });
 
 module.exports = router;
