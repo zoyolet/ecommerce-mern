@@ -42,6 +42,9 @@ app.use("/admin", auth, adminRouter);
 app.use("/cart", auth, cartRouter);
 app.use("/product", productRouter);
 app.use("/order", auth, orderRouter);
+app.get("*", function (req, res) {
+  res.render("404page");
+});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

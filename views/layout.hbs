@@ -18,10 +18,10 @@
     {{else}}
     <a href="/">Home</a>
     <a href="/product">Products</a>
-    <a href="/order">My Orders</a>
-    <a href="/cart">Cart</a>
     {{/if}}
     {{#if isLoggedin}}
+    <a href="/order">My Orders</a>
+    <a href="/cart">Cart</a>
     <a style="float:right" href="/users/logout">Logout</a>
     {{else}}
     <a href="/users/signup">Signup</a>

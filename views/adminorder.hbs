@@ -1,6 +1,8 @@
 <h1>Admin Order</h1>
 
 {{#each items}}
+<a target="_self" href="/admin/orders?orderId={{this._id}}&orderStatus=Approved">Approved</a>
+<a target="_self" href="/admin/orders?orderId={{this._id}}&orderStatus=Rejected">Rejected</a>
 <p>Order Status : {{this.status}}</p>
     <p>total price :{{this.totalprice}}</p>
     {{#each this.product}}
