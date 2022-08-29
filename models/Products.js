@@ -9,7 +9,15 @@ const productSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  quantity: {
+    type: Number,
+    required: true,
+  },
   desc: {
+    type: String,
+    required: true,
+  },
+  brand: {
     type: String,
     required: true,
   },

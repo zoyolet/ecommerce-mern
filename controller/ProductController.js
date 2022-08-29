@@ -12,11 +12,15 @@ const salt = 10;
 
 /* GET users listing. */
 router.get("/", function (req, res, next) {
+  var isLoggedin = false;
+  if (req.session.userToken) {
+    isLoggedin = true;
+  }
   Product.find({}, (err, items) => {
     if (err) {
     } else {
-      console.log(items);
-      res.render("products", { items: items });
+      //   console.log(items);
+      res.render("products", { items: items, isLoggedin: isLoggedin });
     }
   });
 });
@@ -36,6 +40,8 @@ router.post("/createProduct", upload.single("image"), (req, res, next) => {
     name: req.body.name,
     desc: req.body.desc,
     price: req.body.price,
+    quantity: req.body.quantity,
+    brand: req.body.brand,
     img: {
       data: req.file.buffer.toString("base64"),
       contentType: "image/png",
@@ -50,13 +56,5 @@ router.post("/createProduct", upload.single("image"), (req, res, next) => {
     }
   });
 });
-
-// router.get("/listProduct", function (req, res, next) {
-//   res.send("listProduct with a resource");
-// });
-
-// router.get("/deleteProduct", function (req, res, next) {
-//   res.send("deleteProduct with a resource");
-// });
 
 module.exports = router;
