@@ -1,10 +1,10 @@
 var express = require("express");
 const bcrypt = require("bcryptjs");
 const Product = require("./../models/Products");
+const Order = require("./../models/Orders");
 const Cart = require("./../models/Carts");
 var jwt = require("jsonwebtoken");
 const User = require("../models/Users");
-var Handlebars = require("express-handlebars");
 const mongoose = require("mongoose");
 var router = express.Router();
 const salt = 10;
@@ -35,17 +35,36 @@ router.get("/getCartByUser", function (req, res, next) {
   res.send("getProduct with a resource");
 });
 
-router.get("/createCart", async function (req, res, next) {
-  try {
-    let cartRequest = req.body;
-    let cartDB = new Cart(cartRequest);
-    await cartDB.save();
-    res.redirect("/cart");
-  } catch (e) {
-    console.log(e);
-    res.send("error something else");
+router.get("/createOrder", async function (req, res, next) {
+  var isLoggedin = false;
+  if (req.session.userToken) {
+    isLoggedin = true;
   }
-  res.render("createProduct");
+  var decoded = jwt.decode(req.session.userToken);
+  let user = await User.find({ username: decoded.username });
+  let result = await Cart.find({ user: user._id, status: "active" }).populate({
+    path: "product",
+    model: "Product",
+  });
+  // let result = await Cart.find({ user: user._id, status: "active" });
+  //   for (index in result) {
+  //     result[index].status = "inactive";
+  //   }
+  Cart.updateMany({ user: user._id }, { status: "inactive" });
+  var total = 0;
+  for (item in result) {
+    total += result[item].product.price;
+  }
+  let order = new Order();
+  order.totalprice = total;
+  order.user = user._id;
+  let products = [];
+  for (item in result) {
+    products.push(result[item].product._id);
+  }
+  order.product = products;
+  await order.save();
+  res.redirect("/order?orderId=" + order._id);
 });
 
 router.post("/addToCart", async function (req, res, next) {
