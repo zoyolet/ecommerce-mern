@@ -14,6 +14,15 @@ router.get("/getCartByUser", function (req, res, next) {
 });
 
 router.get("/createCart", async function (req, res, next) {
+  try {
+    let cartRequest = req.body;
+    let cartDB = new Cart(cartRequest);
+    await cartDB.save();
+    res.redirect("/cart");
+  } catch (e) {
+    console.log(e);
+    res.send("error something else");
+  }
   res.render("createProduct");
 });
 
