@@ -1,4 +1,5 @@
 var express = require("express");
+const Product = require("./../models/Products");
 var router = express.Router();
 var isLoggedin = false;
 
@@ -8,7 +9,17 @@ router.get("/", function (req, res, next) {
   if (req.session.userToken) {
     isLoggedin = true;
   }
-  res.render("index", { title: "Amernon", isLoggedin: isLoggedin });
+  Product.find({}, (err, items) => {
+    if (err) {
+    } else {
+      //   console.log(items);
+      res.render("index", {
+        title: "Amernon",
+        items: items,
+        isLoggedin: isLoggedin,
+      });
+    }
+  });
 });
 
 module.exports = router;

@@ -1,2 +1,12 @@
 <!DOCTYPE html>
 <h1>Cart Page</h1>
+{{#each result}}
+    <h1>{{this.product.name}}</h1>
+            <div>
+              <img style='width: 150x;height:150px; object-fit: contain'  src="data:image/{{this.product.img.contentType}};base64,{{this.product.img.data}}"/>
+              <p>Description: {{this.product.desc}}</p>
+              <p>Price: {{this.product.price}}$</p>
+              <p>In Stock: {{this.quantity}}</p>
+            </div>
+{{/each}}
+<h1>Total Price : {{total}}$</h1>

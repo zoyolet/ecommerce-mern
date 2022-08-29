@@ -1,3 +1,17 @@
 <h1>{{title}}</h1>
 
 <p>Welcome to {{title}}</p>
+
+<span>
+{{#each items}}
+ <div >
+        <a target="_self" href="/product?productId={{this.id}}">
+                <img style='width:150x;height:150px;object-fit: contain;border:1px solid black;'  src="data:image/{{this.img.contentType}};base64,{{this.img.data}}"/>
+        </a>
+        <div>
+            <h5>{{this.name }}</h5>
+        </div>
+    </div>
+   
+{{/each}}
+</span>
